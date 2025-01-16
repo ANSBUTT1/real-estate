@@ -41,7 +41,7 @@ const Navbar = () => {
     <>
       {/* Main Navbar */}
       <nav
-        className={`p-4 flex justify-between items-center px-16 ${
+        className={`p-4 flex justify-between items-center px-16 sticky top-0 left-0 z-50 ${
           darkMode ? "bg-primary text-secondary" : "bg-secondary text-primary"
         } transition-all duration-300`}
       >
