@@ -87,7 +87,7 @@ const CardComponent = ({ cardData, locations, title }) => {
                   <div className="font-medium text-sm">{card.portion}</div>
                   <div className="flex justify-between items-center gap-2">
                     <div className="text-xs">Area: {card.area}</div>
-                    <div className="text-xs">Location: {card.location}</div>
+                    <div className="text-xs"> {card.location}</div>
                   </div>
                 </div>
                 <div className="flex justify-between text-sm dark:text-secondary">

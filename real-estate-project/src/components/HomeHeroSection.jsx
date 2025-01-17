@@ -4,9 +4,9 @@ import { FaSearch } from "react-icons/fa"; // Import the search icon from react-
 const HomeHeroSection = () => {
   return (
     <div
-      className="w-full h-screen bg-cover bg-no-repeat bg-center"
+      className="w-full z-10 h-screen bg-cover bg-no-repeat bg-center"
       style={{
-        backgroundImage: `url(https://www.graana.com/_next/image/?url=%2Fhome-page-images%2FHeaderImage.png&w=1920&q=75)`,
+        backgroundImage: `url(https://images.pexels.com/photos/9375377/pexels-photo-9375377.jpeg?auto=compress&cs=tinysrgb&w=600)`,
       }}
     > 
       {/* Main content container */}
