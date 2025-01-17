@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaHome, FaRegListAlt, FaShoppingCart, FaUser, FaSignInAlt, FaSun, FaMoon } from "react-icons/fa";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false); // Burger menu state
-  const [isSidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
   const [darkMode, setDarkMode] = useState(false); // Dark mode toggle state
 
-  // Set initial theme based on localStorage or system preference
   useEffect(() => {
     const storedDarkMode = localStorage.getItem("darkMode") === "true";
     setDarkMode(storedDarkMode);
@@ -17,11 +16,10 @@ const Navbar = () => {
     }
   }, []);
 
-  // Toggle between dark and light mode
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    localStorage.setItem("darkMode", newDarkMode); // Save preference to localStorage
+    localStorage.setItem("darkMode", newDarkMode);
     if (newDarkMode) {
       document.documentElement.classList.add("dark");
     } else {
@@ -30,18 +28,13 @@ const Navbar = () => {
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen); // Toggle burger menu
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen); // Toggle sidebar visibility
+    setMenuOpen(!isMenuOpen);
   };
 
   return (
     <>
-      {/* Main Navbar */}
       <nav
-        className={`p-4 flex justify-between items-center px-16 sticky top-0 left-0 z-50 ${
+        className={` p-4 flex justify-between items-center px-16 sticky top-0 left-0 z-50 ${
           darkMode ? "bg-primary text-secondary" : "bg-secondary text-primary"
         } transition-all duration-300`}
       >
@@ -51,37 +44,86 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="block lg:hidden" onClick={toggleMenu}>
           <span className="text-2xl">☰</span>
         </div>
 
-        {/* Desktop Navigation Links */}
         <ul
-          className={`hidden lg:flex space-x-6 ${
-            darkMode ? "text-secondary" : "text-primary"
-          }`}
+          className={`hidden lg:flex space-x-6 ${darkMode ? "text-secondary" : "text-primary"}`}
         >
-          <li>
-            <Link to="/" className="hover:underline">
-              Home
-            </Link>
-          </li>
-          <li>
+          {/* Buy Dropdown */}
+          <li className="relative group">
             <Link to="/buy" className="hover:underline">
               Buy
             </Link>
+            <div className="absolute z-auto  right-0 hidden group-hover:block bg-white shadow-lg p-6 rounded-lg w-64 text-sm transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 ">
+              <ul className="space-y-2">
+                <li>
+                  <Link to="/buy/option1" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Buy a residential property
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/buy/option2" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Buy a commercial property
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/buy/option3" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Buy a plot
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
-          <li>
-            <Link to="/rent" className="hover:underline">
-              Rent
-            </Link>
-          </li>
-          <li>
+
+          {/* Sell Dropdown */}
+          <li className="relative group">
             <Link to="/sell" className="hover:underline">
               Sell
             </Link>
+            <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-6 rounded-lg w-64 text-sm transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 z-10">
+              <ul className="space-y-2">
+                <li>
+                  <Link to="/sell/option1" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Sell a property
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/sell/option2" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Rent out a property
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
+
+          {/* Rent Dropdown */}
+          <li className="relative group">
+            <Link to="/rent" className="hover:underline">
+              Rent
+            </Link>
+            <div className="absolute right-0 hidden group-hover:block bg-white shadow-lg p-6 rounded-lg w-64 text-sm transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 z-10">
+              <ul className="space-y-2">
+                <li>
+                  <Link to="/rent/option1" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Residential properties on rent
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/rent/option2" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    Commercial properties on rent
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/rent/option3" className="hover:underline transition-colors duration-200 hover:text-blue-600">
+                    List my home for rent
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+
           <li>
             <Link to="/blogs" className="hover:underline">
               Blogs
@@ -89,125 +131,51 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Right-aligned items */}
         <div className="lg:flex hidden justify-center gap-4 items-center">
-          <Link to="/wanted" className="hover:underline">
-            Wanted
-          </Link>
-          <Link to="/signup" className="hover:underline">
-            Sign Up
-          </Link>
+          <Link to="/wanted" className="hover:underline">Wanted</Link>
+          <Link to="/signup" className="hover:underline">Sign Up</Link>
           <button onClick={toggleDarkMode} className="p-2 text-lg">
-            {darkMode ? "🌙" : "☀️"} {/* Switch between sun and moon icons */}
+            {darkMode ? <FaMoon /> : <FaSun />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Dropdown Menu */}
       <ul
-        className={`lg:hidden ${isMenuOpen ? "block" : "hidden"} bg-primary text-secondary p-4 space-y-4`}
+        className={`lg:hidden gap-4 flex flex-col md:flex-row md:justify-center md:items-center bg-primary absolute right-0 w-screen text-secondary p-4 transition-all duration-500 ease-in-out transform ${
+          isMenuOpen
+            ? "max-h-screen opacity-100 translate-x-0 overflow-auto"
+            : "max-h-0 opacity-0 pointer-events-none translate-y-full overflow-hidden"
+        }`}
       >
-        <li>
-          <Link to="/" className="block">
-            Home
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaShoppingCart />
+          <Link to="/buy" className="block">Buy</Link>
         </li>
-        <li>
-          <Link to="/blogs" className="block">
-            Blogs
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaRegListAlt />
+          <Link to="/sell" className="block">Sell</Link>
         </li>
-        <li>
-          <Link to="/buy" className="block">
-            Buy
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaHome />
+          <Link to="/rent" className="block">Rent</Link>
         </li>
-        <li>
-          <Link to="/login" className="block">
-            Login
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaRegListAlt />
+          <Link to="/blogs" className="block">Blogs</Link>
         </li>
-        <li>
-          <Link to="/signup" className="block">
-            Sign Up
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaSignInAlt />
+          <Link to="/login" className="block">Login</Link>
         </li>
-        <li>
-          <Link to="/rent" className="block">
-            Rent
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaUser />
+          <Link to="/signup" className="block">Sign Up</Link>
         </li>
-        <li>
-          <Link to="/sell" className="block">
-            Sell
-          </Link>
-        </li>
-        <li>
-          <Link to="/wanted" className="block">
-            Wanted
-          </Link>
+        <li className="flex items-center space-x-2">
+          <FaHome />
+          <Link to="/wanted" className="block">Wanted</Link>
         </li>
       </ul>
-
-      {/* Sidebar with slide-in animation */}
-      {isSidebarOpen && (
-        <aside
-          className={`fixed top-0 left-0 w-64 h-full ${
-            darkMode ? "bg-primary" : "bg-secondary"
-          } text-secondary p-4 space-y-6 transform transition-transform duration-300 ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <button
-            onClick={toggleSidebar}
-            className="text-2xl text-secondary mb-4"
-          >
-            ✖️
-          </button>
-          <ul className="space-y-4">
-            <li>
-              <Link to="/" className="block">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/blogs" className="block">
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link to="/buy" className="block">
-                Buy
-              </Link>
-            </li>
-            <li>
-              <Link to="/login" className="block">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/signup" className="block">
-                Sign Up
-              </Link>
-            </li>
-            <li>
-              <Link to="/rent" className="block">
-                Rent
-              </Link>
-            </li>
-            <li>
-              <Link to="/sell" className="block">
-                Sell
-              </Link>
-            </li>
-            <li>
-              <Link to="/wanted" className="block">
-                Wanted
-              </Link>
-            </li>
-          </ul>
-        </aside>
-      )}
     </>
   );
 };
